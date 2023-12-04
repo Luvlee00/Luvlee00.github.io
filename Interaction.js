@@ -1,7 +1,8 @@
 function redirectToApplicationPage() {
     window.location.href = 'ACE-FORM.html';
-}
+  }
 
+/* Global function*/
 var submitButton = document.getElementById("submit-button");
 
 /*Function for displaying or hiding */
@@ -51,90 +52,79 @@ function displaySections() {
     }
 }
 
-// Event listener for the "Add Row" button for TableAOS
-document.getElementById("add-row-AOS").addEventListener("click", function () {
+
+
+// Function to add a row to the specified table
+function addRowToSheet(tableId, sheetName) {
     const selectedACE = document.getElementById("ACE").value;
 
-    if (selectedACE === "AOS") {
-        addRowToBackend("AOS");
+    if (selectedACE === sheetName) {
+        const table = document.getElementById(tableId);
+        const newRow = table.insertRow(-1);
+
+        const codeCell = newRow.insertCell(0);
+        const subjectTitleCell = newRow.insertCell(1);
+        const dayCell = newRow.insertCell(2);
+        const timeCell = newRow.insertCell(3);
+        const roomCell = newRow.insertCell(4);
+        const unitsCell = newRow.insertCell(5);
+        const deleteCell = newRow.insertCell(6);
+
+        // Set content and attributes for cells
+        codeCell.innerHTML = '<input type="text" name="' + sheetName + '_code" required>';
+        subjectTitleCell.innerHTML = '<input type="text" name="' + sheetName + '_subjectTitle" required>';
+        dayCell.innerHTML = '<input type="text" name="' + sheetName + '_day" required>';
+        timeCell.innerHTML = '<input type="text" name="' + sheetName + '_time" required>';
+        roomCell.innerHTML = '<input type="text" name="' + sheetName + '_room" required>';
+        unitsCell.innerHTML = '<input type="text" name="' + sheetName + '_units" required>';
+        deleteCell.innerHTML = '<button class="delete-row" onclick="deleteRow(this)">Delete Row</button>';
+
+        const data = {
+            ACE: selectedACE,
+            code: codeCell.querySelector('input').value,
+            subjectTitle: subjectTitleCell.querySelector('input').value,
+            day: dayCell.querySelector('input').value,
+            time: timeCell.querySelector('input').value,
+            room: roomCell.querySelector('input').value,
+            units: unitsCell.querySelector('input').value,
+        };
+
+        // Send data to Google Apps Script
+        sendDataToAppsScript(data);
     }
-});
-
-// Event listener for the "Add Row" button for fromCOSTable
-document.getElementById("add-row-from").addEventListener("click", function () {
-    const selectedACE = document.getElementById("ACE").value;
-
-    if (selectedACE === "COS") {
-        addRowToBackend("fromCOS");
-    }
-});
-
-// Event listener for the "Add Row" button for toCOSTable
-document.getElementById("add-row-to").addEventListener("click", function () {
-    const selectedACE = document.getElementById("ACE").value;
-
-    if (selectedACE === "COS") {
-        addRowToBackend("toCOS");
-    }
-});
-
-// Event listener for the "Add Row" button for tableW
-document.getElementById("add-row-W").addEventListener("click", function () {
-    const selectedACE = document.getElementById("ACE").value;
-
-    if (selectedACE === "W") {
-        addRowToBackend("W");
-    }
-});
-
-// Function to add a row to the backend (Google Sheets)
-function addRowToBackend(sheetName) {
-    const table = document.getElementById(sheetName + "Table");
-    const rows = table.getElementsByTagName("tr");
-    const newRow = rows[rows.length - 1];
-
-    const cells = newRow.getElementsByTagName("td");
-    const rowData = Array.from(cells).map(cell => {
-        const input = cell.querySelector("input");
-        return input ? input.value.trim() : "";
-    });
-
-    fetch("https://script.google.com/macros/library/d/1U-U5L3SuvJvY_YQw8DrXC5-YD0X7YtuF3KPQ7-6Us2arNUh0VE-XoZ7P/6", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            ACE: sheetName,
-            rowData: rowData,
-            // Add other parameters as needed
-        }),
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Server response:", data);
-        })
-        .catch(error => {
-            console.error("Error sending data to server:", error);
-        });
 }
+
+// Update your existing event listeners
+document.getElementById("add-row-AOS").addEventListener("click", function () {
+    addRowToSheet("AOSTable", "AOS");
+});
+
+document.getElementById("add-row-from").addEventListener("click", function () {
+    addRowToSheet("fromCOSTable", "COS");
+});
+
+document.getElementById("add-row-to").addEventListener("click", function () {
+    addRowToSheet("toCOSTable", "COS");
+});
+
+document.getElementById("add-row-W").addEventListener("click", function () {
+    addRowToSheet("WTable", "W");
+});
 
 // Function to delete a row
 function deleteRow(button) {
     const row = button.parentElement.parentElement;
-    row.remove();
+    row.remove(); 
 }
 
 // Function to display the pop-up
 function openPopup() {
     document.getElementById("popupContainer").style.display = "block";
 }
-
 // Function to close the pop-up
 function closePopup() {
     document.getElementById("popupContainer").style.display = "none";
 }
-
 // Automatically open the pop-up when the page loads
 window.onload = openPopup;
 
@@ -398,7 +388,6 @@ function validateForm(event) {
     return true;
 }
 
-// Add event listeners to call validation functions on relevant events
 document.getElementById("stud_number").addEventListener("blur", validateStudentNumber);
 document.getElementById("stud_name").addEventListener("blur", validateStudentName);
 document.getElementById("course-section").addEventListener("blur", validateCourseSection);
@@ -418,6 +407,7 @@ document.getElementById("total-units").addEventListener("input", function () {
 });
 
 // Add event listener to the submit button
+var submitButton = document.getElementById("submit-button");
 if (submitButton) {
     submitButton.addEventListener("click", function (event) {
         console.log("Submit button clicked");
