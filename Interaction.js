@@ -388,35 +388,4 @@ function validateForm(event) {
     return true;
 }
 
-document.getElementById("stud_number").addEventListener("blur", validateStudentNumber);
-document.getElementById("stud_name").addEventListener("blur", validateStudentName);
-document.getElementById("course-section").addEventListener("blur", validateCourseSection);
-document.getElementById("academic_year").addEventListener("change", validateAcademicYear);
-document.getElementById("academic_semester").addEventListener("change", validateAcademicSemester);
-document.getElementById("date").addEventListener("blur", validateDate);
-document.getElementById("Reasons").addEventListener("blur", validateReason);
 
-document.getElementById("number-of-units").addEventListener("input", function () {
-    validateNumberField("number-of-units", "Number of Units (Registration Certificate)");
-});
-document.getElementById("number-of-units-added").addEventListener("input", function () {
-    validateNumberField("number-of-units-added", "Number of Units to be Added");
-});
-document.getElementById("total-units").addEventListener("input", function () {
-    validateNumberField("total-units", "Total Number of Units Enrolled");
-});
-
-// Add event listener to the submit button
-var submitButton = document.getElementById("submit-button");
-if (submitButton) {
-    submitButton.addEventListener("click", function (event) {
-        console.log("Submit button clicked");
-        if (!validateForm(event)) {
-            event.preventDefault(); // Prevent form submission if validation fails
-        } else {
-            console.log("Submission successful");
-            alert("Submission successful! Please Check your PUP Webmail for Updates"); // Show alert for successful submission
-            // You can perform any other actions here if needed
-        }
-    });
-}
