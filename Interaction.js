@@ -54,12 +54,12 @@ function displaySections() {
 
 
 
-// Function to add a row to the specified table
-function addRowToSheet(tableId, sheetName) {
+// Event listener for the "Add Row" button for TableAOS
+document.getElementById("add-row-AOS").addEventListener("click", function () {
     const selectedACE = document.getElementById("ACE").value;
 
-    if (selectedACE === sheetName) {
-        const table = document.getElementById(tableId);
+    if (selectedACE === "AOS") {
+        const table = document.getElementById("AOSTable");
         const newRow = table.insertRow(-1);
 
         const codeCell = newRow.insertCell(0);
@@ -71,44 +71,94 @@ function addRowToSheet(tableId, sheetName) {
         const deleteCell = newRow.insertCell(6);
 
         // Set content and attributes for cells
-        codeCell.innerHTML = '<input type="text" name="' + sheetName + '_code" required>';
-        subjectTitleCell.innerHTML = '<input type="text" name="' + sheetName + '_subjectTitle" required>';
-        dayCell.innerHTML = '<input type="text" name="' + sheetName + '_day" required>';
-        timeCell.innerHTML = '<input type="text" name="' + sheetName + '_time" required>';
-        roomCell.innerHTML = '<input type="text" name="' + sheetName + '_room" required>';
-        unitsCell.innerHTML = '<input type="text" name="' + sheetName + '_units" required>';
+        codeCell.innerHTML = '<input type="text" name="AOS_code" required>';
+        subjectTitleCell.innerHTML = '<input type="text" name="AOS_subjectTitle" required>';
+        dayCell.innerHTML = '<input type="text" name="AOS_day" required>';
+        timeCell.innerHTML = '<input type="text" name="AOS_time" required>';
+        roomCell.innerHTML = '<input type="text" name="AOS_room" required>';
+        unitsCell.innerHTML = '<input type="text" name="AOS_units" required>';
         deleteCell.innerHTML = '<button class="delete-row" onclick="deleteRow(this)">Delete Row</button>';
-
-        const data = {
-            ACE: selectedACE,
-            code: codeCell.querySelector('input').value,
-            subjectTitle: subjectTitleCell.querySelector('input').value,
-            day: dayCell.querySelector('input').value,
-            time: timeCell.querySelector('input').value,
-            room: roomCell.querySelector('input').value,
-            units: unitsCell.querySelector('input').value,
-        };
-
-        // Send data to Google Apps Script
-        sendDataToAppsScript(data);
     }
-}
-
-// Update your existing event listeners
-document.getElementById("add-row-AOS").addEventListener("click", function () {
-    addRowToSheet("AOSTable", "AOS");
 });
 
+// Event listener for the "Add Row" button for fromCOSTable
 document.getElementById("add-row-from").addEventListener("click", function () {
-    addRowToSheet("fromCOSTable", "COS");
-});
+    const selectedACE = document.getElementById("ACE").value;
 
+    if (selectedACE === "COS") {
+        const table = document.getElementById("fromCOSTable");
+        const newRow = table.insertRow(-1);
+
+        const codeCell = newRow.insertCell(0);
+        const subjectTitleCell = newRow.insertCell(1);
+        const dayCell = newRow.insertCell(2);
+        const timeCell = newRow.insertCell(3);
+        const roomCell = newRow.insertCell(4);
+        const unitsCell = newRow.insertCell(5);
+        const deleteCell = newRow.insertCell(6);
+
+        // Set content and attributes for cells
+        codeCell.innerHTML = '<input type="text" name="fromCos_code" required>';
+        subjectTitleCell.innerHTML = '<input type="text" name="fromCos_subjectTitle" required>';
+        dayCell.innerHTML = '<input type="text" name="fromCos_day" required>';
+        timeCell.innerHTML = '<input type="text" name="fromCos_time" required>';
+        roomCell.innerHTML = '<input type="text" name="fromCos_room" required>';
+        unitsCell.innerHTML = '<input type="text" name="fromCos_units" required>';
+        deleteCell.innerHTML = '<button class="delete-row" onclick="deleteRow(this)">Delete Row</button>';
+    }
+});
+// Event listener for the "Add Row" button for toCOSTable
 document.getElementById("add-row-to").addEventListener("click", function () {
-    addRowToSheet("toCOSTable", "COS");
+    const selectedACE = document.getElementById("ACE").value;
+
+    if (selectedACE === "COS") {
+        const table = document.getElementById("toCOSTable");
+        const newRow = table.insertRow(-1);
+
+        const codeCell = newRow.insertCell(0);
+        const subjectTitleCell = newRow.insertCell(1);
+        const dayCell = newRow.insertCell(2);
+        const timeCell = newRow.insertCell(3);
+        const roomCell = newRow.insertCell(4);
+        const unitsCell = newRow.insertCell(5);
+        const deleteCell = newRow.insertCell(6);
+
+        // Set content and attributes for cells
+        codeCell.innerHTML = '<input type="text" name="toCos_code" required>';
+        subjectTitleCell.innerHTML = '<input type="text" name="toCos_subjectTitle" required>';
+        dayCell.innerHTML = '<input type="text" name="toCos_day" required>';
+        timeCell.innerHTML = '<input type="text" name="toCos_time" required>';
+        roomCell.innerHTML = '<input type="text" name="toCos_room" required>';
+        unitsCell.innerHTML = '<input type="text" name="toCos_units" required>';
+        deleteCell.innerHTML = '<button class="delete-row" onclick="deleteRow(this)">Delete Row</button>';
+    }
 });
 
+// Event listener for the "Add Row" button for tableW
 document.getElementById("add-row-W").addEventListener("click", function () {
-    addRowToSheet("WTable", "W");
+    const selectedACE = document.getElementById("ACE").value;
+
+    if (selectedACE === "W") {
+        const table = document.getElementById("WTable");
+        const newRow = table.insertRow(-1);
+
+        const codeCell = newRow.insertCell(0);
+        const subjectTitleCell = newRow.insertCell(1);
+        const dayCell = newRow.insertCell(2);
+        const timeCell = newRow.insertCell(3);
+        const roomCell = newRow.insertCell(4);
+        const unitsCell = newRow.insertCell(5);
+        const deleteCell = newRow.insertCell(6);
+
+        // Set content and attributes for cells
+        codeCell.innerHTML = '<input type="text" name="W_code" required>';
+        subjectTitleCell.innerHTML = '<input type="text" name="W_subjectTitle" required>';
+        dayCell.innerHTML = '<input type="text" name="W_day" required>';
+        timeCell.innerHTML = '<input type="text" name="W_time" required>';
+        roomCell.innerHTML = '<input type="text" name="W_room" required>';
+        unitsCell.innerHTML = '<input type="text" name="W_units" required>';
+        deleteCell.innerHTML = '<button class="delete-row" onclick="deleteRow(this)">Delete Row</button>';
+    }
 });
 
 // Function to delete a row
@@ -388,4 +438,35 @@ function validateForm(event) {
     return true;
 }
 
+// Add event listeners to call validation functions on relevant events
+document.getElementById("stud_number").addEventListener("blur", validateStudentNumber);
+document.getElementById("stud_name").addEventListener("blur", validateStudentName);
+document.getElementById("course-section").addEventListener("blur", validateCourseSection);
+document.getElementById("academic_year").addEventListener("change", validateAcademicYear);
+document.getElementById("academic_semester").addEventListener("change", validateAcademicSemester);
+document.getElementById("date").addEventListener("blur", validateDate);
+document.getElementById("Reasons").addEventListener("blur", validateReason);
 
+document.getElementById("number-of-units").addEventListener("input", function () {
+    validateNumberField("number-of-units", "Number of Units (Registration Certificate)");
+});
+document.getElementById("number-of-units-added").addEventListener("input", function () {
+    validateNumberField("number-of-units-added", "Number of Units to be Added");
+});
+document.getElementById("total-units").addEventListener("input", function () {
+    validateNumberField("total-units", "Total Number of Units Enrolled");
+});
+
+// Add event listener to the submit button
+if (submitButton) {
+    submitButton.addEventListener("click", function (event) {
+        console.log("Submit button clicked");
+        if (!validateForm(event)) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        } else {
+            console.log("Submission successful");
+            alert("Submission successful! Please Check your PUP Webmail for Updates"); // Show alert for successful submission
+            // You can perform any other actions here if needed
+        }
+    });
+}
